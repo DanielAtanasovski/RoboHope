@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rolemusic - pl4y1ng.mp3-cbaac97bcd3f57c9272ed66c1ebbfbda.mp3str"
+
+[deps]
+
+source_file="res://music/Rolemusic - pl4y1ng.mp3"
+dest_files=[ "res://.import/Rolemusic - pl4y1ng.mp3-cbaac97bcd3f57c9272ed66c1ebbfbda.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

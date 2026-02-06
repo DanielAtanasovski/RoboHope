@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rolemusic - Shipwreck In The Pacific Ocean.mp3-6d880ff8a4e063cb7066a7fecbe74e98.mp3str"
+
+[deps]
+
+source_file="res://music/Rolemusic - Shipwreck In The Pacific Ocean.mp3"
+dest_files=[ "res://.import/Rolemusic - Shipwreck In The Pacific Ocean.mp3-6d880ff8a4e063cb7066a7fecbe74e98.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

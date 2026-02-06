@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rolemusic - She Is My Best Treasure.mp3-bb65eca3f00231c873adfcd84934c870.mp3str"
+
+[deps]
+
+source_file="res://music/Rolemusic - She Is My Best Treasure.mp3"
+dest_files=[ "res://.import/Rolemusic - She Is My Best Treasure.mp3-bb65eca3f00231c873adfcd84934c870.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

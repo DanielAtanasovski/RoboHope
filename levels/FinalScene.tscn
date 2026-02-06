@@ -1,0 +1,476 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/Robot_BuildBot.png" type="Texture" id=2]
+[ext_resource path="res://fonts/RobotoCondensed-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://sprites/animations/Flames2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/animations/Flames3.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Rocket.png" type="Texture" id=6]
+[ext_resource path="res://sprites/animations/Flames1.png" type="Texture" id=7]
+[ext_resource path="res://levels/FinalScene.gd" type="Script" id=8]
+[ext_resource path="res://music/Rolemusic - She Is My Best Treasure.mp3" type="AudioStream" id=9]
+[ext_resource path="res://sprites/animations/Star2.png" type="Texture" id=10]
+[ext_resource path="res://sprites/animations/Star3.png" type="Texture" id=11]
+[ext_resource path="res://sprites/animations/Star1.png" type="Texture" id=12]
+
+[sub_resource type="AnimatedTexture" id=12]
+frames = 3
+fps = 1.0
+frame_0/texture = ExtResource( 12 )
+frame_1/texture = ExtResource( 10 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 11 )
+frame_2/delay_sec = 0.0
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="AnimatedTexture" id=7]
+frames = 3
+frame_0/texture = ExtResource( 7 )
+frame_1/texture = ExtResource( 4 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 5 )
+frame_2/delay_sec = 0.0
+
+[sub_resource type="Animation" id=8]
+resource_name = "FinalScene"
+length = 8.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Rocket:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 389, -0.25, 0, 0.25, 0, 384, -0.25, 0, 0.25, 0, 368, -0.25, 0, 0.25, 0, 378, -0.25, 0, 0.25, 0, 373, -0.25, 0, 0.25, 0, 368, -0.25, 0, 0.25, 0, 385, -0.25, 0, 0.25, 0, 398, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3, 4, 5, 6, 7, 8 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Rocket:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 664, -0.25, 0, 0.25, 0, 121, -0.25, 0, 0.25, 0, 227, -0.25, 0, 0.25, 0, 219, -0.25, 0, 0.25, 0, 135, -0.25, 0, 0.25, 0, 227, -0.25, 0, 0.25, 0, 209, -0.25, 0, 0.25, 0, 68, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3, 4, 5, 6, 7, 8 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("VBoxContainer/StartingQuote:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 4.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("VBoxContainer/EndingQuote:percent_visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 5, 5.5, 8 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("BuildBot:rect_position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 768, -0.25, 0, 0.25, 0, 756, -0.25, 0, 0.25, 0, 759, -0.25, 0, 0.25, 0, 732, -0.25, 0, 0.25, 0, 675, -0.25, 0, 0.25, 0, 732, -0.25, 0, 0.25, 0, 782, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3, 4, 6, 7, 8 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("BuildBot:rect_position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 872, -0.25, 0, 0.25, 0, 340, -0.25, 0, 0.25, 0, 458, -0.25, 0, 0.25, 0, 394, -0.25, 0, 0.25, 0, 367, -0.25, 0, 0.25, 0, 340, -0.25, 0, 0.25, 0, 377, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3, 4, 6, 7, 8 )
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../../MarginContainer:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Loop"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BuildBot:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 782, 377 ), Vector2( 739, 349 ), Vector2( 784, 328 ), Vector2( 744, 379 ), Vector2( 829, 354 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Rocket:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 398, 68 ), Vector2( 372, 142 ), Vector2( 343, 95 ), Vector2( 386, 129 ), Vector2( 447, 89 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Rocket:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 389, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Rocket:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 664, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("VBoxContainer/StartingQuote:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("VBoxContainer/EndingQuote:percent_visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("BuildBot:rect_position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 768, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("BuildBot:rect_position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 872, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../../MarginContainer:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("BuildBot:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 782, 377 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Rocket:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 398, 68 ) ]
+}
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -20.0
+autoplay = true
+
+[node name="Star" type="TextureRect" parent="."]
+modulate = Color( 0.984314, 0.976471, 0.603922, 1 )
+margin_left = 144.0
+margin_top = 69.0
+margin_right = 184.0
+margin_bottom = 117.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star2" type="TextureRect" parent="."]
+margin_left = 770.0
+margin_top = 99.0
+margin_right = 810.0
+margin_bottom = 147.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star3" type="TextureRect" parent="."]
+modulate = Color( 0.964706, 0.470588, 0.470588, 1 )
+margin_left = 201.0
+margin_top = 284.0
+margin_right = 241.0
+margin_bottom = 332.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star4" type="TextureRect" parent="."]
+modulate = Color( 0.984314, 0.976471, 0.603922, 1 )
+margin_left = 917.0
+margin_top = 151.0
+margin_right = 957.0
+margin_bottom = 199.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star7" type="TextureRect" parent="."]
+margin_left = 360.0
+margin_top = 99.0
+margin_right = 400.0
+margin_bottom = 147.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star8" type="TextureRect" parent="."]
+modulate = Color( 0.964706, 0.470588, 0.470588, 1 )
+margin_left = 45.0001
+margin_top = 472.0
+margin_right = 85.0001
+margin_bottom = 520.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star9" type="TextureRect" parent="."]
+modulate = Color( 0.47451, 0.745098, 0.984314, 1 )
+margin_left = 603.0
+margin_top = 413.0
+margin_right = 643.0
+margin_bottom = 461.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star10" type="TextureRect" parent="."]
+modulate = Color( 0.964706, 0.470588, 0.470588, 1 )
+margin_left = 627.0
+margin_top = 11.0
+margin_right = 667.0
+margin_bottom = 59.0001
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star5" type="TextureRect" parent="."]
+margin_left = 778.0
+margin_top = 438.0
+margin_right = 818.0
+margin_bottom = 486.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="Star6" type="TextureRect" parent="."]
+modulate = Color( 0.984314, 0.976471, 0.603922, 1 )
+margin_left = 270.0
+margin_top = 456.0
+margin_right = 310.0
+margin_bottom = 504.0
+rect_scale = Vector2( 1.66923, 0.975369 )
+texture = SubResource( 12 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Cutscene" type="Control" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 483.0
+size_flags_vertical = 3
+
+[node name="Scene1" type="Control" parent="VBoxContainer/Cutscene"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BuildBot" type="TextureRect" parent="VBoxContainer/Cutscene/Scene1"]
+margin_left = 768.0
+margin_top = 872.0
+margin_right = 896.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 128, 128 )
+rect_rotation = -90.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Cutscene/Scene1"]
+anchor_right = 1.0
+margin_bottom = 80.0
+
+[node name="StartingQuote" type="Label" parent="VBoxContainer/Cutscene/Scene1/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 4 )
+text = "Thanks Human, you really saved us back there. . ."
+percent_visible = 0.0
+
+[node name="EndingQuote" type="Label" parent="VBoxContainer/Cutscene/Scene1/VBoxContainer"]
+margin_top = 42.0
+margin_right = 1024.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 4 )
+text = "But maybe next time I'll just fly . . ."
+align = 2
+percent_visible = 0.0
+
+[node name="Rocket" type="TextureRect" parent="VBoxContainer/Cutscene/Scene1"]
+margin_left = 389.0
+margin_top = 664.0
+margin_right = 645.0
+margin_bottom = 920.001
+rect_min_size = Vector2( 256, 256 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Flame" type="TextureRect" parent="VBoxContainer/Cutscene/Scene1/Rocket"]
+show_behind_parent = true
+margin_left = 195.0
+margin_top = 321.0
+margin_right = 323.0
+margin_bottom = 449.0
+rect_min_size = Vector2( 128, 128 )
+rect_rotation = 180.0
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="FinalLabel" type="Label" parent="VBoxContainer/Cutscene/Scene1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -142.5
+margin_top = -19.0
+margin_right = 142.5
+margin_bottom = 19.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 4 )
+text = "The Hero has arrived..."
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/Cutscene/Scene1"]
+anims/FinalScene = SubResource( 8 )
+anims/Loop = SubResource( 11 )
+anims/RESET = SubResource( 9 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+visible = false
+margin_top = 487.0
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+margin_left = 432.0
+margin_top = 10.0
+margin_right = 591.0
+margin_bottom = 93.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/separation = 10
+
+[node name="WinTimeLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 159.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 10 )
+
+[node name="Play" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 159.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 64, 32 )
+custom_fonts/font = SubResource( 1 )
+text = "Return to Menu"
+
+[connection signal="animation_finished" from="VBoxContainer/Cutscene/Scene1/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]

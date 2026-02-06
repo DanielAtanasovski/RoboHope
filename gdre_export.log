@@ -1,0 +1,35 @@
+GDRE Tools v0.6.2
+EndeavourOS #1 SMP PREEMPT_DYNAMIC Sun, 16 Jun 2024 19:06:37 +0000, NVIDIA GeForce RTX 2070 SUPER, opengl3
+Extracted 161 files, no errors detected!
+USER WARNING: Converting lossy imports, you may lose fidelity for indicated assets when re-importing upon loading the project
+   at: _export_imports (modules/gdsdecomp/utility/import_exporter.cpp:58)
+Script version 3.5.0 (rev 0xa7aad78) detected
+Saved project config project.godot.
+Saved project config project.godot.
+
+
+********************************EXPORT REPORT********************************
+
+Totals:                                 
+Decompiled scripts:                     16
+Failed scripts:                         0
+Imported resources for export session:  161
+Successfully converted:                 49
+Lossy:                                  0
+Rewrote metadata:                       0
+Non-importable conversions:             0
+Not converted:                          0
+Failed conversions:                     0
+-------------
+
+
+
+------------------------------------------------------------------------------------
+
+Use Godot editor version 3.5.0 to edit the project.
+Note: the project may be using a custom version of Godot. Detection for this has not been implemented yet.
+If you find that you have many non-import errors upon opening the project 
+(i.e. scripts or shaders have many errors), use the original game's binary as the export template.
+
+*******************************************************************************
+

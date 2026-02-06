@@ -1,0 +1,164 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "AI",
+"language": "GDScript",
+"path": "res://objects/AI.gd"
+}, {
+"base": "RigidBody2D",
+"class": "BuildBot",
+"language": "GDScript",
+"path": "res://objects/BuildBot.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://objects/Bullet.gd"
+}, {
+"base": "Node2D",
+"class": "Factory",
+"language": "GDScript",
+"path": "res://objects/Factory.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://objects/Player.gd"
+}, {
+"base": "Node2D",
+"class": "Resource_Rock",
+"language": "GDScript",
+"path": "res://objects/Rock.gd"
+}, {
+"base": "Node2D",
+"class": "Resource_Tree",
+"language": "GDScript",
+"path": "res://objects/Tree.gd"
+} ]
+_global_script_class_icons={
+"AI": "",
+"BuildBot": "",
+"Bullet": "",
+"Factory": "",
+"Player": "",
+"Resource_Rock": "",
+"Resource_Tree": ""
+}
+
+[application]
+
+config/name="RoboHope"
+config/description="Cross of a top-down shooter and RTS-lite game, help your robotic friends get off the planet that is infested with fearsome monsters!!"
+run/main_scene="res://levels/MainMenu.tscn"
+boot_splash/bg_color=Color( 0.113725, 0.113725, 0.113725, 1 )
+config/icon="res://sprites/Player.png"
+
+[autoload]
+
+Ai="*res://objects/AI.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+
+[global]
+
+layer_=false
+
+[importer_defaults]
+
+texture={
+"detect_3d": false,
+"flags/filter": false
+}
+
+[input]
+
+move_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shoot={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+toggle_mining={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_button={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_button_2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+help_button={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":72,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Friendly_Bullets"
+2d_physics/layer_3="World_Resources"
+2d_physics/layer_4="Enemies"
+2d_physics/layer_5="Enemy_Bullets"
+2d_physics/layer_6="Friendlies"
+2d_physics/layer_7="Resources"
+
+[physics]
+
+2d/default_gravity_vector=Vector2( 0, 0 )
+
+[rendering]
+
+environment/default_clear_color=Color( 0, 0, 0, 1 )
