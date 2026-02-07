@@ -7,8 +7,8 @@ var _set_collection:bool = false
 export  var _only_player:bool = false
 
 enum RESOURCE{
-	WOOD, 
-	CRYSTAL, 
+	WOOD,
+	CRYSTAL,
 	STONE
 }
 export (RESOURCE) var _resource:int = RESOURCE.WOOD
@@ -26,6 +26,8 @@ func _process(delta):
 					_collector.add_stone(1)
 				RESOURCE.CRYSTAL:
 					_collector.add_crystal(1)
+					if $"/root/RLInterface".rl_mode:
+						$"/root/RLInterface".record_crystal_collected()
 			_collector = null
 			queue_free()
 		else :
@@ -35,8 +37,8 @@ func _process(delta):
 func _on_Area2D_area_entered(area):
 	if _only_player:
 		if not "Player" in area.get_parent().name:
-			return 
-	
+			return
+
 	if not _set_collection:
 		_collector = area.get_parent()
 		_set_collection = true

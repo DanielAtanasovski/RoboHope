@@ -21,6 +21,9 @@ export  var _damage: = 1
 
 var _nearby_factory:Factory = null
 
+# RL Mode variables
+var _rl_aim_direction: Vector2 = Vector2(1, 0)
+
 
 onready var _animation_player:AnimationPlayer = $AnimationPlayer
 onready var _attack_timer:Timer = $AttackTimer
@@ -40,11 +43,11 @@ func _ready():
 
 func _process(_delta):
 	if _dead:
-		return 
-	
+		return
+
 	_handle_movement_input()
 	_handle_interactions()
-	
+
 	if _nearby_factory and is_instance_valid(_nearby_factory):
 		_update_factory_info()
 
@@ -58,7 +61,7 @@ func _handle_movement_input():
 		_input_vector.y += 1
 	if Input.is_action_pressed("move_right"):
 		_input_vector.x += 1
-	
+
 	if _input_vector != Vector2.ZERO:
 		_moving = true
 		_animation_player.play("Move")
@@ -71,23 +74,23 @@ func _handle_interactions():
 	if Input.is_action_just_released("interact"):
 		if _nearby_factory:
 			$CanvasLayer / FactoryMenu.visible = not $CanvasLayer / FactoryMenu.visible
-	
+
 	if Input.is_action_just_released("zoom_in"):
 		if $Camera2D.zoom.x > 0.6:
-			return 
+			return
 		$Camera2D.zoom = Vector2($Camera2D.zoom.x + 0.1, $Camera2D.zoom.y + 0.1)
-		
+
 	if Input.is_action_just_released("zoom_out"):
 		if $Camera2D.zoom.x < 0.3:
-			return 
+			return
 		$Camera2D.zoom = Vector2($Camera2D.zoom.x - 0.1, $Camera2D.zoom.y - 0.1)
-	
+
 	if $CanvasLayer / FactoryMenu.visible:
-		return 
-	
+		return
+
 	if Input.is_action_just_released("help_button"):
 		$CanvasLayer / HelpMenu.visible = not $CanvasLayer / HelpMenu.visible
-	
+
 	if Input.is_action_just_released("toggle_mining"):
 		_mining_tool_enable = not _mining_tool_enable
 		if _mining_tool_enable:
@@ -96,7 +99,7 @@ func _handle_interactions():
 			_current_interact_texture.texture = _attack_texture
 			$Laser.set_is_casting(false)
 			_is_mining = false
-	
+
 	if Input.is_action_pressed("shoot"):
 		if _mining_tool_enable:
 			if not _is_mining:
@@ -119,7 +122,7 @@ func _handle_mining():
 	$Laser.rotation_degrees = rad2deg((get_global_mouse_position() - global_position).angle())
 	if $Laser.is_colliding():
 		if not $Laser.get_collider():
-			return 
+			return
 
 		var resource = $Laser.get_collider().get_parent()
 		if resource is Resource_Rock or resource is Resource_Tree:
@@ -142,9 +145,9 @@ func _handle_mining():
 
 func _handle_shoot():
 	if not _can_shoot:
-		return 
-	
-	
+		return
+
+
 	var bullet:Bullet = preload("res://objects/Bullet.tscn").instance()
 	bullet.set_friendly(true)
 	bullet.set_shoot_direction(_get_aim_direction().normalized())
@@ -153,7 +156,7 @@ func _handle_shoot():
 	bullet.set_damage(_damage + int($"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_DAMAGE)))
 	_can_shoot = false
 	$ShootAudioPlayer.play()
-	
+
 	_attack_timer.start(_attack_speed - (_attack_speed * $"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_ATTACK_SPEED)))
 
 func _get_aim_direction()->Vector2:
@@ -172,19 +175,24 @@ func add_wood(amount:int):
 func add_stone(amount:int):
 	_stone += amount
 	_stone_label.text = str(_stone)
-	
+
 func add_crystal(amount:int):
 	_crystal += amount
 	_crystal_label.text = str(_crystal)
 
 func take_damage(damage:int):
+	if $"/root/RLInterface".rl_mode:
+		$"/root/RLInterface".record_player_damage(damage)
+
 	_health -= damage
 	_health_label.text = str(_health)
-	
+
 	_animation_player.play("Hit")
-	
+
 	if _health <= 0 and not _dead:
 		_dead = true
+		if $"/root/RLInterface".rl_mode:
+			$"/root/RLInterface".record_player_death()
 		$"/root/Ai".get_level().show_gameover()
 
 func entered_factory(factory:Factory):
@@ -202,10 +210,10 @@ func _update_factory_info():
 	$"%AggressorBotButton".disabled = false
 	$"%AggressorBotButton".text = "select"
 	$"%RocketButton".text = "select"
-	
+
 	if _crystal >= 5:
 		$"%RocketButton".disabled = false
-	
+
 	match _nearby_factory.get_current_build():
 		0:
 			$"%BuildBotButton".disabled = true
@@ -220,7 +228,7 @@ func _update_factory_info():
 func _update_upgrade_info():
 	var total_wood = _wood + _nearby_factory.get_wood()
 	var total_stone = _stone + _nearby_factory.get_stone()
-	
+
 	if total_wood >= 3 and total_stone >= 3:
 		$"%PlayerAttackSpeedButton".disabled = false
 		$"%PlayerMoveSpeedButton".disabled = false
@@ -233,7 +241,7 @@ func _update_upgrade_info():
 		$"%PlayerDamageButton".disabled = true
 		$"%BotAttackSpeedButton".disabled = true
 		$"%BotMoveSpeedButton".disabled = true
-	
+
 	var prefix: = "Upgrade (+"
 	$"%PlayerAttackSpeedButton".text = prefix + str(int($"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_ATTACK_SPEED) * 100)) + "%)"
 	$"%PlayerMoveSpeedButton".text = prefix + str(int($"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_MOVE_SPEED) * 100)) + "%)"
@@ -275,14 +283,14 @@ func _on_BotMoveSpeedButton_pressed():
 		_nearby_factory.take_wood(diff)
 	else :
 		_wood -= 3
-	
+
 	if _stone < 3:
 		var diff = 3 - _stone
 		_stone = 0
 		_nearby_factory.take_stone(diff)
 	else :
 		_stone -= 3
-	
+
 	$"/root/Ai".set_modifier($"/root/Ai".Modifiers.BOT_MOVE_SPEED, $"/root/Ai".get_modifier($"/root/Ai".Modifiers.BOT_MOVE_SPEED) + 0.1)
 	_update_factory_info()
 
@@ -293,14 +301,14 @@ func _on_BotAttackSpeedButton_pressed():
 		_nearby_factory.take_wood(diff)
 	else :
 		_wood -= 3
-	
+
 	if _stone < 3:
 		var diff = 3 - _stone
 		_stone = 0
 		_nearby_factory.take_stone(diff)
 	else :
 		_stone -= 3
-		
+
 	$"/root/Ai".set_modifier($"/root/Ai".Modifiers.BOT_ATTACK_SPEED, $"/root/Ai".get_modifier($"/root/Ai".Modifiers.BOT_ATTACK_SPEED) + 0.1)
 	_update_factory_info()
 
@@ -311,14 +319,14 @@ func _on_PlayerDamageButton_pressed():
 		_nearby_factory.take_wood(diff)
 	else :
 		_wood -= 3
-	
+
 	if _stone < 3:
 		var diff = 3 - _stone
 		_stone = 0
 		_nearby_factory.take_stone(diff)
 	else :
 		_stone -= 3
-		
+
 	$"/root/Ai".set_modifier($"/root/Ai".Modifiers.PLAYER_DAMAGE, $"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_DAMAGE) + 1.0)
 	_update_factory_info()
 
@@ -329,14 +337,14 @@ func _on_PlayerMoveSpeedButton_pressed():
 		_nearby_factory.take_wood(diff)
 	else :
 		_wood -= 3
-	
+
 	if _stone < 3:
 		var diff = 3 - _stone
 		_stone = 0
 		_nearby_factory.take_stone(diff)
 	else :
 		_stone -= 3
-		
+
 	$"/root/Ai".set_modifier($"/root/Ai".Modifiers.PLAYER_MOVE_SPEED, $"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_MOVE_SPEED) + 0.1)
 	_update_factory_info()
 
@@ -347,13 +355,13 @@ func _on_PlayerAttackSpeedButton_pressed():
 		_nearby_factory.take_wood(diff)
 	else :
 		_wood -= 3
-	
+
 	if _stone < 3:
 		var diff = 3 - _stone
 		_stone = 0
 		_nearby_factory.take_stone(diff)
 	else :
 		_stone -= 3
-		
+
 	$"/root/Ai".set_modifier($"/root/Ai".Modifiers.PLAYER_ATTACK_SPEED, $"/root/Ai".get_modifier($"/root/Ai".Modifiers.PLAYER_ATTACK_SPEED) + 0.1)
 	_update_factory_info()

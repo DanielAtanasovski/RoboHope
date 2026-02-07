@@ -21,23 +21,24 @@ func _ready():
 	_generate_trees()
 	_generate_rocks()
 	_time_start = OS.get_unix_time()
-	
+
 
 func _play_music():
 	if $AudioStreamPlayer.playing:
-		return 
-	
+		return
+
 	var old_music = _music_index
 	_music_index = randi() % _music.size()
-	
+
 	while _music_index == old_music:
 		_music_index = randi() % _music.size()
-	
+
 	$AudioStreamPlayer.stream = _music[_music_index]
 	$AudioStreamPlayer.play()
 
 func _process(_delta):
 	_play_music()
+	_handle_rl_debug()
 
 func _get_safe_coord():
 	var safe:bool = false
@@ -45,7 +46,7 @@ func _get_safe_coord():
 	while not safe:
 		coord.x = rand_range(_min_world.x, _max_world.x)
 		coord.y = rand_range(_min_world.y, _max_world.y)
-		
+
 		if not _safe_zone.has_point(coord):
 			safe = true
 	return coord
@@ -61,7 +62,7 @@ func _generate_rocks():
 		var tree = preload("res://objects/Rock.tscn").instance()
 		tree.global_position = _get_safe_coord()
 		_resources_node.add_child(tree)
-	
+
 func show_gameover():
 	$CanvasLayer / GameOverMenu.visible = true
 	var time_end = OS.get_unix_time() - _time_start
@@ -72,3 +73,18 @@ func _on_TryAgainButton_pressed():
 
 func get_time_start():
 	return _time_start
+
+func _handle_rl_debug():
+	# Debug key: Press "1" (debug_button) to print observation
+	if Input.is_action_just_pressed("debug_button"):
+		var obs = $"/root/RLInterface".get_observation_v0()
+		print("=== RL Observation (v0) ===")
+		print("Size: ", obs.size())
+		for i in range(obs.size()):
+			print("  [%d]: %.4f" % [i, obs[i]])
+		print("")
+
+	# Debug key: Press "2" (debug_button_2) to reset world
+	if Input.is_action_just_pressed("debug_button_2"):
+		print("=== Resetting World ===")
+		$"/root/RLInterface".reset_world(42)

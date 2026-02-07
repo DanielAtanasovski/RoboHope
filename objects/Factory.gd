@@ -10,37 +10,37 @@ var _stone:int = 0
 var _health:int = 5
 
 enum BUILD_OPTIONS{
-	BUILDBOT, 
-	AGGRESSOR_BOT, 
-	ROCKET, 
-	RANDOM_UPGRADE, 
+	BUILDBOT,
+	AGGRESSOR_BOT,
+	ROCKET,
+	RANDOM_UPGRADE,
 }
 enum BUILD_PROPERTIES{
-	COST, 
-	TIME, 
+	COST,
+	TIME,
 	PATH
 }
 
 const _build_map:Dictionary = {
 	BUILD_OPTIONS.BUILDBOT:{
-		BUILD_PROPERTIES.COST:Vector2(4, 4), 
-		BUILD_PROPERTIES.TIME:5.0, 
+		BUILD_PROPERTIES.COST:Vector2(4, 4),
+		BUILD_PROPERTIES.TIME:5.0,
 		BUILD_PROPERTIES.PATH:"res://objects/BuildBot.tscn"
-	}, 
+	},
 	BUILD_OPTIONS.AGGRESSOR_BOT:{
-		BUILD_PROPERTIES.COST:Vector2(6, 4), 
-		BUILD_PROPERTIES.TIME:6.0, 
+		BUILD_PROPERTIES.COST:Vector2(6, 4),
+		BUILD_PROPERTIES.TIME:6.0,
 		BUILD_PROPERTIES.PATH:"res://objects/DefenceBot.tscn"
-	}, 
+	},
 	BUILD_OPTIONS.ROCKET:{
-		BUILD_PROPERTIES.COST:Vector2(20, 20), 
+		BUILD_PROPERTIES.COST:Vector2(20, 20),
 		BUILD_PROPERTIES.TIME:10.0
-	}, 
+	},
 	BUILD_OPTIONS.RANDOM_UPGRADE:{
-		BUILD_PROPERTIES.COST:Vector2(10, 10), 
+		BUILD_PROPERTIES.COST:Vector2(10, 10),
 		BUILD_PROPERTIES.TIME:10.0
-	}, 
-	
+	},
+
 }
 
 var _build_option:int = BUILD_OPTIONS.BUILDBOT
@@ -86,10 +86,12 @@ func _update_frame_state():
 
 func _on_BuildTime_timeout():
 	if _build_option == BUILD_OPTIONS.ROCKET:
+		if $"/root/RLInterface".rl_mode:
+			$"/root/RLInterface".record_rocket_launched()
 		$"/root/Ai".set_end_time()
 		get_tree().change_scene("res://levels/FinalScene.tscn")
-		return 
-	
+		return
+
 	var unit:Node2D = load(_build_map[_build_option][BUILD_PROPERTIES.PATH]).instance()
 	$"/root/Ai".get_friendlies().add_child(unit)
 	unit.global_position = $Spawn.global_position
@@ -108,14 +110,14 @@ func hide_interact_panel():
 
 func _on_FactoryArea_body_entered(body):
 	if not body.name == "Player":
-		return 
-	
+		return
+
 	show_interact_panel()
 	body.entered_factory(self)
 
 func _on_FactoryArea_body_exited(body):
 	if not body.name == "Player":
-		return 
+		return
 	hide_interact_panel()
 	body.left_factory()
 
@@ -141,12 +143,14 @@ func take_damage(damage:int):
 	_health -= damage
 	if _health <= 0:
 		_die()
-	
+
 func _die():
 	var flames_instance: = preload("res://objects/Flames.tscn").instance()
 	get_parent().get_parent().add_child(flames_instance)
 	flames_instance.global_position = global_position
 	_drop_resources()
+	if $"/root/RLInterface".rl_mode:
+		$"/root/RLInterface".record_factory_destroyed()
 	$"/root/Ai".factory_died()
 	queue_free()
 
@@ -162,4 +166,3 @@ func _drop_resources():
 		var resource: = preload("res://objects/Stone_Resource.tscn").instance()
 		$"/root/Ai".get_world().call_deferred("add_child", resource)
 		resource.global_position = global_position + _get_random_point_range(16)
-

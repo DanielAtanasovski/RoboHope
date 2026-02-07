@@ -65,6 +65,8 @@ config/icon="res://sprites/Player.png"
 [autoload]
 
 Ai="*res://objects/AI.gd"
+RLInterface="*res://objects/RLInterface.gd"
+RLServer="*res://objects/RLServer.gd"
 
 [display]
 
